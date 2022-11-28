@@ -135,17 +135,10 @@ def pregunta_10():
 
 def pregunta_11():
     
-    dataf = pd.DataFrame()
-    for letra in tbl1["_c0"].unique():
-        df = np.where(tbl1["_c0"]==letra,tbl1["_c4"],"")
-        df = np.delete(df, np.where(df == ""))
-        string = ""
-        for item in list(np.sort(df, axis=0)):
-            string = string + str(item) + ","
-        string = string[:-1]
-        temp = pd.DataFrame({"_c0":[letra], "_c4": string})
-        dataf = dataf.append(temp, ignore_index=True)
-    return dataf
+ ans =tbl1.groupby("_c0").apply(formatDataframe11).to_frame().reset_index()
+    ans.rename(columns={0: "_c4"}, inplace=True)
+    #ans.set_index("_c1", inplace=True)
+    return (ans)
 
 def pregunta_12():
     """
